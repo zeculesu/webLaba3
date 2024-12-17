@@ -23,21 +23,13 @@ function draw(radius) {
     drawTriangle(ctx, 3, centerX, centerY, R / 2, R);
     drawRectangle(ctx, 4, centerX, centerY, R, R, R);
     drawCoordinateGrid(ctx, centerX, centerY, width, height, step);
-
-    // if (!isNaN(getInputR()) || getInputR() !== null) {
-    //     canvas.onclick = e => {
-    //         handleSubmit(e, [Math.round((e.offsetX - centerX) / step)], (centerY - e.offsetY) / step).then();
-    //     }
-    // } else {
-    //     showNotification("Не выбран радиус");
-    // }
 }
 
 function clearCanvas(ctx, width, height) {
     ctx.clearRect(0, 0, width, height);
 }
 
-function drawPoint(x, y, hit) {
+function drawPoint(x, y, hit, r) {
     const canvas = document.getElementById('graphCanvas');
     const ctx = canvas.getContext('2d');
     const width = canvas.width;
@@ -48,7 +40,7 @@ function drawPoint(x, y, hit) {
 
     let circle = new Path2D();
     circle.arc(centerX + x * step, centerY - y * step, 3, 0, 2 * Math.PI);
-    if (hit) {
+    if (checkHit(x, y, r)) {
         ctx.fillStyle = "#25CE00";
     } else {
         ctx.fillStyle = "#EA526F";
@@ -58,7 +50,7 @@ function drawPoint(x, y, hit) {
 
 function drawAllPoints() {
     getPoints().forEach(function (point) {
-        drawPoint(point.x, point.y, point.hit);
+        drawPoint(point.x, point.y, point.hit, selectedR);
     });
 }
 

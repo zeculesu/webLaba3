@@ -31,6 +31,21 @@ function checkR(r) {
     return true;
 }
 
+
+function checkHit(x, y, r){
+    if (x <= 0 && y >= 0) {
+        return x * x + y * y <= r * r;
+    }
+    if (x <= 0 && y <= 0) {
+        return y >= -2 * x - r;
+    }
+    if (x >= 0 && y <= 0) {
+        return x <= r && y >= -r;
+    }
+    return false;
+}
+
+
 function showNotification(message) {
     const container = document.getElementById('notification-container');
 

@@ -1,6 +1,6 @@
 package com.itmo.web_laba_3.beans;
 
-import com.itmo.web_laba_3.exceptions.ValidationException;
+import com.itmo.web_laba_3.validators.ValidationException;
 import com.itmo.web_laba_3.model.Point;
 import com.itmo.web_laba_3.services.AreaCheck;
 import com.itmo.web_laba_3.services.PointsDBManager;
@@ -17,8 +17,8 @@ import java.util.List;
 
 //todo перенести с аннотаций в конфиг
 //todo часики переделать
-// кнопочку поправить наща
-
+// todo очистить кнопка
+//todo лишнее сохранение R
 @Named
 @SessionScoped
 public class PointController implements Serializable {

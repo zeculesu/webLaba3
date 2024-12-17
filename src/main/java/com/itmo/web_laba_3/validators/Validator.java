@@ -1,7 +1,5 @@
 package com.itmo.web_laba_3.validators;
 
-import com.itmo.web_laba_3.exceptions.ValidationException;
-
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
