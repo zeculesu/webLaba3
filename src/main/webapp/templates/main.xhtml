@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+<h:head>
+    <title>Lab3</title>
+    <h:outputStylesheet name="static/styles/style.css"/>
+</h:head>
+
+<h:body>
+    <header>
+        Самойлова Артемия Александровна P3230 87111
+        <div id="header-navigation">
+            <h:button type="button" outcome="changePage" value="На начальную"/>
+        </div>
+    </header>
+    <div id="notification-container"></div>
+    <!--  todo доделать валидацию  <div id="notification-container"></div>-->
+
+    <div id="main" class="grid-container">
+
+        <div class="canvas-container">
+            <canvas id="graphCanvas" width="400" height="400"/>
+        </div>
+
+        <div class="form-container">
+            <h:form id="coordForm" onsubmit="return checkR(selectedR);">
+                <h:outputLabel for="x" value="X: "/>
+                <div>
+                    <p:selectOneMenu id="x" value="#{pointController.point.x}">
+                        <f:selectItem itemLabel="-5" itemValue="-5"/>
+                        <f:selectItem itemLabel="-4" itemValue="-4"/>
+                        <f:selectItem itemLabel="-3" itemValue="-3"/>
+                        <f:selectItem itemLabel="-2" itemValue="-2"/>
+                        <f:selectItem itemLabel="-1" itemValue="-1"/>
+                        <f:selectItem itemLabel="0" itemValue="0"/>
+                        <f:selectItem itemLabel="1" itemValue="1"/>
+                        <f:selectItem itemLabel="2" itemValue="2"/>
+                        <f:selectItem itemLabel="3" itemValue="3"/>
+                    </p:selectOneMenu>
+                </div>
+                <br/>
+
+                <h:outputLabel for="y" value="Y ∈ [-5;3]:"/>
+                <div>
+                    <p:inputText id="y" name="y" value="#{pointController.point.y}" maxlength="6"
+                                 validatorMessage="  Значение должно быть в диапазоне [-5; 3]"
+                                 converterMessage="  Y должен быть числом">
+                        <f:validateDoubleRange minimum="-5" maximum="3"/>
+                        <f:ajax render="validationMessages"/>
+                    </p:inputText>
+                    <h:message id="validationMessages" for="y" style="color: red; margin-top: 10px;"/>
+
+                </div>
+                <br/>
+
+                <h:outputLabel value="R = "/>
+                <h:commandLink value="1" styleClass="button-link">
+                    <p:ajax listener="#{pointController.point.setR(1)}" oncomplete="renderAll(1);"/>
+                </h:commandLink>
+                <h:commandLink value="2" styleClass="button-link">
+                    <p:ajax listener="#{pointController.point.setR(2)}" oncomplete="renderAll(2);"/>
+                </h:commandLink>
+                <h:commandLink value="3" styleClass="button-link">
+                    <p:ajax listener="#{pointController.point.setR(3)}" oncomplete="renderAll(3);"/>
+                </h:commandLink>
+                <h:commandLink value="4" styleClass="button-link">
+                    <p:ajax listener="#{pointController.point.setR(4)}" oncomplete="renderAll(4);"/>
+                </h:commandLink>
+                <h:commandLink value="5" styleClass="button-link">
+                    <p:ajax listener="#{pointController.point.setR(5)}" oncomplete="renderAll(5);"/>
+                </h:commandLink>
+
+                <div class="button-container">
+                    <h:commandButton value="Жмяк" action="#{pointController.submitForm}"
+                                     styleClass="custom-button" update="resultTable" process="@form"/>
+                </div>
+                <h:messages id="serverMessages" style="color: red; margin-bottom: 10px;" />
+            </h:form>
+
+            <h:form id="canvasForm" prependId="false">
+                <h:inputHidden id="canvasX" value="#{pointController.pointCanvas.x}"/>
+                <h:inputHidden id="canvasY" value="#{pointController.pointCanvas.y}"/>
+                <h:inputHidden id="canvasR" value="#{pointController.pointCanvas.r}"/>
+                <p:commandButton action="#{pointController.submitFormCanvas}"
+                                 id="submitFormCanvas"
+                                 process="@form"
+                                 update="resultTable"
+                                 oncomplete="renderAll();"
+                                 style="display:none;"/>
+            </h:form>
+
+        </div>
+        <div class="hit-table-container full-width">
+            <h:dataTable id="resultTable" value="#{pointController.points}" var="pp"
+                         style="width:100%;" emptyMessage="Нет результатов">
+                <h:column>
+                    <f:facet name="header">X</f:facet>
+                    #{pp.x}
+                </h:column>
+                <h:column>
+                    <f:facet name="header">Y</f:facet>
+                    #{pp.y}
+                </h:column>
+                <h:column>
+                    <f:facet name="header">R</f:facet>
+                    #{pp.r}
+                </h:column>
+                <h:column>
+                    <f:facet name="header">Попадание</f:facet>
+                    #{pp.hit ? 'Да' : 'Нет'}
+                </h:column>
+            </h:dataTable>
+        </div>
+    </div>
+    <h:outputScript name="/static/scripts/index.js"/>
+    <h:outputScript name="/static/scripts/drawGraph.js"/>
+    <h:outputScript name="/static/scripts/validate.js"/>
+<!--    <h:outputScript>-->
+<!--        document.getElementById('graphCanvas').addEventListener('click', function (event) {-->
+<!--        const canvas = event.target;-->
+
+<!--        const height = canvas.height;-->
+<!--        const width = canvas.width;-->
+
+<!--        const step = width / 6 / 2;-->
+<!--        const centerX = width / 2;-->
+<!--        const centerY = height / 2;-->
+
+<!--        const x = Math.round((event.offsetX - centerX) / step);-->
+<!--        const y = (centerY - event.offsetY) / step;-->
+
+<!--        console.log(x, y, selectedR);-->
+
+<!--        if (checkY(y) && checkX(X)){-->
+<!--        }-->
+
+<!--        document.getElementById('canvasX').value = x;-->
+<!--        document.getElementById('canvasY').value = y;-->
+
+<!--        document.getElementById('canvasR').value = selectedR;-->
+
+<!--        document.getElementById('submitFormCanvas').click();-->
+<!--        });-->
+<!--    </h:outputScript>-->
+</h:body>
+</html>
