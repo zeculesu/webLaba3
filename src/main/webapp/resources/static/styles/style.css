@@ -115,7 +115,7 @@ body {
     background: white;
     border: 3px solid #EA526F;
     border-radius: 13px;
-    width: 80px;
+    width: 120px; /* Увеличиваем ширину для лучшего выравнивания */
     height: 40px;
     color: #EA526F;
     font-size: 16px;

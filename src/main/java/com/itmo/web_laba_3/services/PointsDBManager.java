@@ -33,19 +33,19 @@ public class PointsDBManager {
         }
     }
 
-//    public void clearAllShots(){
-//        EntityManager entityManager = dbManager.getEntityManager();
-//        EntityTransaction transaction = entityManager.getTransaction();
-//        try {
-//            transaction.begin();
-//            entityManager.createQuery("DELETE FROM GraphShot").executeUpdate();
-//            transaction.commit();
-//        } catch (Exception e) {
-//            if (transaction.isActive()) {
-//                transaction.rollback();
-//            }
-//        } finally {
-//            entityManager.close();
-//        }
-//    }
+    public void clearAllShots(){
+        EntityManager entityManager = dbManager.getEntityManager();
+        EntityTransaction transaction = entityManager.getTransaction();
+        try {
+            transaction.begin();
+            entityManager.createQuery("DELETE FROM Point").executeUpdate();
+            transaction.commit();
+        } catch (Exception e) {
+            if (transaction.isActive()) {
+                transaction.rollback();
+            }
+        } finally {
+            entityManager.close();
+        }
+    }
 }

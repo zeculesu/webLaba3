@@ -27,7 +27,7 @@
         </div>
 
         <div class="form-container">
-            <h:form id="coordForm" onsubmit="return checkR(selectedR);">
+            <h:form id="coordForm">
                 <h:outputLabel for="x" value="X: "/>
                 <div>
                     <p:selectOneMenu id="x" value="#{pointController.point.x}">
@@ -78,7 +78,7 @@
                     <h:commandButton value="Жмяк" action="#{pointController.submitForm}"
                                      styleClass="custom-button" update="resultTable" process="@form"/>
                 </div>
-                <h:messages id="serverMessages" style="color: red; margin-bottom: 10px;" />
+                <h:messages id="serverMessages" style="color: red; margin-bottom: 10px;"/>
             </h:form>
 
             <h:form id="canvasForm" prependId="false">
@@ -94,6 +94,10 @@
             </h:form>
 
         </div>
+        <h:form id="clearForm">
+            <h:commandButton value="ДЕСТРОЙ" action="#{pointController.clearPoints}"
+                             styleClass="custom-button" update="resultTable"/>
+        </h:form>
         <div class="hit-table-container full-width">
             <h:dataTable id="resultTable" value="#{pointController.points}" var="pp"
                          style="width:100%;" emptyMessage="Нет результатов">
@@ -119,32 +123,5 @@
     <h:outputScript name="/static/scripts/index.js"/>
     <h:outputScript name="/static/scripts/drawGraph.js"/>
     <h:outputScript name="/static/scripts/validate.js"/>
-<!--    <h:outputScript>-->
-<!--        document.getElementById('graphCanvas').addEventListener('click', function (event) {-->
-<!--        const canvas = event.target;-->
-
-<!--        const height = canvas.height;-->
-<!--        const width = canvas.width;-->
-
-<!--        const step = width / 6 / 2;-->
-<!--        const centerX = width / 2;-->
-<!--        const centerY = height / 2;-->
-
-<!--        const x = Math.round((event.offsetX - centerX) / step);-->
-<!--        const y = (centerY - event.offsetY) / step;-->
-
-<!--        console.log(x, y, selectedR);-->
-
-<!--        if (checkY(y) && checkX(X)){-->
-<!--        }-->
-
-<!--        document.getElementById('canvasX').value = x;-->
-<!--        document.getElementById('canvasY').value = y;-->
-
-<!--        document.getElementById('canvasR').value = selectedR;-->
-
-<!--        document.getElementById('submitFormCanvas').click();-->
-<!--        });-->
-<!--    </h:outputScript>-->
 </h:body>
 </html>

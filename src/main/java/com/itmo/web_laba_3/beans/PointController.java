@@ -16,9 +16,6 @@ import java.util.Collections;
 import java.util.List;
 
 //todo перенести с аннотаций в конфиг
-//todo часики переделать
-// todo очистить кнопка
-//todo лишнее сохранение R
 @Named
 @SessionScoped
 public class PointController implements Serializable {
@@ -79,6 +76,10 @@ public class PointController implements Serializable {
         List<Point> reversed = new ArrayList<>(this.points.getShots());
         Collections.reverse(reversed);
         return reversed;
+    }
+
+    public void clearPoints(){
+        this.points.clearAllShots();
     }
 
 }
