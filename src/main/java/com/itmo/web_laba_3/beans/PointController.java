@@ -5,6 +5,7 @@ import com.itmo.web_laba_3.model.Point;
 import com.itmo.web_laba_3.services.AreaCheck;
 import com.itmo.web_laba_3.services.PointsDBManager;
 import com.itmo.web_laba_3.validators.Validator;
+import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.enterprise.context.SessionScoped;
 import jakarta.faces.application.FacesMessage;
 import jakarta.faces.context.FacesContext;
@@ -17,7 +18,7 @@ import java.util.List;
 
 //todo перенести с аннотаций в конфиг
 @Named
-@SessionScoped
+@ApplicationScoped
 public class PointController implements Serializable {
     private final PointsDBManager points = new PointsDBManager();
     private Point point;

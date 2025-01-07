@@ -19,9 +19,9 @@ function draw(radius) {
     const R = radius * width / 6 / 2;
     const step = width / 6 / 2;
 
-    drawCircle(ctx, 2, centerX, centerY, R);
-    drawTriangle(ctx, 3, centerX, centerY, R / 2, R);
-    drawRectangle(ctx, 4, centerX, centerY, R, R, R);
+    drawCircle(ctx, 3, centerX, centerY, R/2);
+    drawTriangle(ctx, 2, centerX, centerY, R, R);
+    drawRectangle(ctx, 1, centerX, centerY, R, R);
     drawCoordinateGrid(ctx, centerX, centerY, width, height, step);
 }
 
@@ -54,7 +54,7 @@ function drawAllPoints() {
     });
 }
 
-function drawRectangle(ctx, quarter, centerX, centerY, radius, sideByX, sideByY) {
+function drawRectangle(ctx, quarter, centerX, centerY, sideByX, sideByY) {
     ctx.beginPath();
     switch (quarter) {
         case 1:

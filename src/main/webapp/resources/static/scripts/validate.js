@@ -1,6 +1,6 @@
 function checkY(y) {
-    if (y < -5 || y > 3) {
-        showNotification("Значение X должно быть в диапазоне от -5 до 3");
+    if (y < -3 || y > 3) {
+        showNotification("Значение Y должно быть в диапазоне от -3 до 3");
         return false;
     }
     return true;
@@ -33,14 +33,14 @@ function checkR(r) {
 
 
 function checkHit(x, y, r){
-    if (x <= 0 && y >= 0) {
-        return x * x + y * y <= r * r;
+    if (x >= 0 && y >= 0) {
+        return x <= r && y <= r;
     }
     if (x <= 0 && y <= 0) {
-        return y >= -2 * x - r;
+        return x*x + y*y <= (r * r) / 4;
     }
     if (x >= 0 && y <= 0) {
-        return x <= r && y >= -r;
+        return y >= x - r;
     }
     return false;
 }

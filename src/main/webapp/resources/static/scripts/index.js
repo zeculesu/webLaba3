@@ -17,23 +17,25 @@ function getPoints() {
     return points;
 }
 
-function renderAll(r) {
-    if (r) {
-        draw(r);
-    } else {
-        const savedR = sessionStorage.getItem('selectedR');
-        if (savedR !== null) {
-            selectedR = parseFloat(savedR);
-            draw(selectedR);
-        } else {
-            draw();
-        }
-    }
+function renderAll() {
+    let r = document.querySelector("[id$='coordForm:r_input']").value;
+    draw(r);
     drawAllPoints();
 }
 
 document.addEventListener("DOMContentLoaded", function () {
     renderAll();
+});
+
+document.addEventListener("DOMContentLoaded", function() {
+    const xButtons = document.querySelectorAll(".button-link");
+
+    xButtons.forEach(button => {
+        button.addEventListener("click", function() {
+            xButtons.forEach(btn => btn.classList.remove("active"));
+            button.classList.add("active");
+        });
+    });
 });
 
 document.getElementById('graphCanvas').addEventListener('click', function (event) {
@@ -48,14 +50,15 @@ document.getElementById('graphCanvas').addEventListener('click', function (event
 
     const x = Math.round((event.offsetX - centerX) / step);
     const y = (centerY - event.offsetY) / step;
+    const r = document.querySelector("[id$='coordForm:r_input']").value;
 
-    console.log(x, y, selectedR);
+    console.log(x, y, r);
 
     if (checkY(y) && checkX(x)) {
         document.getElementById('canvasX').value = x;
         document.getElementById('canvasY').value = y;
 
-        document.getElementById('canvasR').value = selectedR;
+        document.getElementById('canvasR').value = r;
 
         document.getElementById('submitFormCanvas').click();
         renderAll();

@@ -2,7 +2,6 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:f="http://java.sun.com/jsf/core"
       xmlns:p="http://primefaces.org/ui">
 <h:head>
@@ -28,28 +27,42 @@
 
         <div class="form-container">
             <h:form id="coordForm">
-                <h:outputLabel for="x" value="X: "/>
-                <div>
-                    <p:selectOneMenu id="x" value="#{pointController.point.x}">
-                        <f:selectItem itemLabel="-5" itemValue="-5"/>
-                        <f:selectItem itemLabel="-4" itemValue="-4"/>
-                        <f:selectItem itemLabel="-3" itemValue="-3"/>
-                        <f:selectItem itemLabel="-2" itemValue="-2"/>
-                        <f:selectItem itemLabel="-1" itemValue="-1"/>
-                        <f:selectItem itemLabel="0" itemValue="0"/>
-                        <f:selectItem itemLabel="1" itemValue="1"/>
-                        <f:selectItem itemLabel="2" itemValue="2"/>
-                        <f:selectItem itemLabel="3" itemValue="3"/>
-                    </p:selectOneMenu>
-                </div>
+                <h:outputLabel value="X: "/>
+                <h:commandLink value="-5" styleClass="button-link">
+                    <p:ajax listener="#{pointController.point.setX(-5)}"/>
+                </h:commandLink>
+                <h:commandLink value="-4" styleClass="button-link">
+                    <p:ajax listener="#{pointController.point.setX(-4)}"/>
+                </h:commandLink>
+                <h:commandLink value="-3" styleClass="button-link">
+                    <p:ajax listener="#{pointController.point.setX(-3)}"/>
+                </h:commandLink>
+                <h:commandLink value="-2" styleClass="button-link">
+                    <p:ajax listener="#{pointController.point.setX(-2)}"/>
+                </h:commandLink>
+                <h:commandLink value="-1" styleClass="button-link">
+                    <p:ajax listener="#{pointController.point.setX(-1)}"/>
+                </h:commandLink>
+                <h:commandLink value="0" styleClass="button-link active">
+                    <p:ajax listener="#{pointController.point.setX(0)}"/>
+                </h:commandLink>
+                <h:commandLink value="1" styleClass="button-link">
+                    <p:ajax listener="#{pointController.point.setX(1)}"/>
+                </h:commandLink>
+                <h:commandLink value="2" styleClass="button-link">
+                    <p:ajax listener="#{pointController.point.setX(2)}"/>
+                </h:commandLink>
+                <h:commandLink value="3" styleClass="button-link">
+                    <p:ajax listener="#{pointController.point.setX(3)}"/>
+                </h:commandLink>
                 <br/>
 
-                <h:outputLabel for="y" value="Y ∈ [-5;3]:"/>
+                <h:outputLabel for="y" value="Y ∈ [-3;3]:"/>
                 <div>
                     <p:inputText id="y" name="y" value="#{pointController.point.y}" maxlength="6"
-                                 validatorMessage="  Значение должно быть в диапазоне [-5; 3]"
+                                 validatorMessage="  Значение должно быть в диапазоне [-3; 3]"
                                  converterMessage="  Y должен быть числом">
-                        <f:validateDoubleRange minimum="-5" maximum="3"/>
+                        <f:validateDoubleRange minimum="-3" maximum="3"/>
                         <f:ajax render="validationMessages"/>
                     </p:inputText>
                     <h:message id="validationMessages" for="y" style="color: red; margin-top: 10px;"/>
@@ -57,28 +70,20 @@
                 </div>
                 <br/>
 
-                <h:outputLabel value="R = "/>
-                <h:commandLink value="1" styleClass="button-link">
-                    <p:ajax listener="#{pointController.point.setR(1)}" oncomplete="renderAll(1);"/>
-                </h:commandLink>
-                <h:commandLink value="2" styleClass="button-link">
-                    <p:ajax listener="#{pointController.point.setR(2)}" oncomplete="renderAll(2);"/>
-                </h:commandLink>
-                <h:commandLink value="3" styleClass="button-link">
-                    <p:ajax listener="#{pointController.point.setR(3)}" oncomplete="renderAll(3);"/>
-                </h:commandLink>
-                <h:commandLink value="4" styleClass="button-link">
-                    <p:ajax listener="#{pointController.point.setR(4)}" oncomplete="renderAll(4);"/>
-                </h:commandLink>
-                <h:commandLink value="5" styleClass="button-link">
-                    <p:ajax listener="#{pointController.point.setR(5)}" oncomplete="renderAll(5);"/>
-                </h:commandLink>
+                <h:outputLabel value="R = " for="r"/>
+                <p:selectOneMenu id="r" value="#{pointController.point.r}">
+                    <f:selectItem itemLabel="1" itemValue="1"/>
+                    <f:selectItem itemLabel="2" itemValue="2"/>
+                    <f:selectItem itemLabel="3" itemValue="3"/>
+                    <f:selectItem itemLabel="4" itemValue="4"/>
+                    <f:selectItem itemLabel="5" itemValue="5"/>
+                    <p:ajax oncomplete="renderAll();"/>
+                </p:selectOneMenu>
 
                 <div class="button-container">
                     <h:commandButton value="Жмяк" action="#{pointController.submitForm}"
                                      styleClass="custom-button" update="resultTable" process="@form"/>
                 </div>
-                <h:messages id="serverMessages" style="color: red; margin-bottom: 10px;"/>
             </h:form>
 
             <h:form id="canvasForm" prependId="false">

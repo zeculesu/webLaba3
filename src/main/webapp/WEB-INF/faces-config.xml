@@ -19,10 +19,4 @@
         </navigation-case>
     </navigation-rule>
 
-    <managed-bean>
-        <managed-bean-name>pointController</managed-bean-name>
-        <managed-bean-class>com.itmo.web_laba_3.beans.PointController</managed-bean-class>
-        <managed-bean-scope>session</managed-bean-scope>
-    </managed-bean>
-
 </faces-config>
