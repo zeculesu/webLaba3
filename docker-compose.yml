@@ -3,16 +3,37 @@ services:
     build: .
     ports:
       - "8080:8080"
-    depends_on:
-      - postgres
-
-  postgres:
-    image: postgres:latest
-    restart: always
-    shm_size: 128mb
     environment:
-      POSTGRES_USER: lab3_user
-      POSTGRES_PASSWORD: lab3_user_password
-    ports:
-      - "5432:5432"
+      - INFLUXDB_URL=${INFLUXDB_URL}
+      - INFLUXDB_TOKEN=${INFLUXDB_TOKEN}
+      - INFLUXDB_ORG=${INFLUXDB_ORG}
+      - INFLUXDB_BUCKET=${INFLUXDB_BUCKET}
 
+  wildfly:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8081:8080"
+      - "9990:9990"
+    environment:
+      - WILDFLY_USER=admin
+      - WILDFLY_PASSWORD=admin
+    depends_on:
+      - influxdb
+
+  influxdb:
+    image: influxdb:2.7
+    ports:
+      - "8086:8086"
+    environment:
+      DOCKER_INFLUXDB_INIT_MODE: setup
+      DOCKER_INFLUXDB_INIT_USERNAME: zeculesu
+      DOCKER_INFLUXDB_INIT_PASSWORD: zeculesu
+      DOCKER_INFLUXDB_INIT_ORG: itmo
+      DOCKER_INFLUXDB_INIT_BUCKET: lab3
+    volumes:
+      - influxdb_data:/var/lib/influxdb2
+
+volumes:
+  influxdb_data:

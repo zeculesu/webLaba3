@@ -29,37 +29,37 @@
             <h:form id="coordForm">
                 <h:outputLabel value="X: "/>
                 <h:commandLink value="-5" styleClass="button-link">
-                    <p:ajax listener="#{pointController.point.setX(-5)}"/>
+                    <p:ajax listener="#{dotController.dot.setX(-5)}"/>
                 </h:commandLink>
                 <h:commandLink value="-4" styleClass="button-link">
-                    <p:ajax listener="#{pointController.point.setX(-4)}"/>
+                    <p:ajax listener="#{dotController.dot.setX(-4)}"/>
                 </h:commandLink>
                 <h:commandLink value="-3" styleClass="button-link">
-                    <p:ajax listener="#{pointController.point.setX(-3)}"/>
+                    <p:ajax listener="#{dotController.dot.setX(-3)}"/>
                 </h:commandLink>
                 <h:commandLink value="-2" styleClass="button-link">
-                    <p:ajax listener="#{pointController.point.setX(-2)}"/>
+                    <p:ajax listener="#{dotController.dot.setX(-2)}"/>
                 </h:commandLink>
                 <h:commandLink value="-1" styleClass="button-link">
-                    <p:ajax listener="#{pointController.point.setX(-1)}"/>
+                    <p:ajax listener="#{dotController.dot.setX(-1)}"/>
                 </h:commandLink>
                 <h:commandLink value="0" styleClass="button-link active">
-                    <p:ajax listener="#{pointController.point.setX(0)}"/>
+                    <p:ajax listener="#{dotController.dot.setX(0)}"/>
                 </h:commandLink>
                 <h:commandLink value="1" styleClass="button-link">
-                    <p:ajax listener="#{pointController.point.setX(1)}"/>
+                    <p:ajax listener="#{dotController.dot.setX(1)}"/>
                 </h:commandLink>
                 <h:commandLink value="2" styleClass="button-link">
-                    <p:ajax listener="#{pointController.point.setX(2)}"/>
+                    <p:ajax listener="#{dotController.dot.setX(2)}"/>
                 </h:commandLink>
                 <h:commandLink value="3" styleClass="button-link">
-                    <p:ajax listener="#{pointController.point.setX(3)}"/>
+                    <p:ajax listener="#{dotController.dot.setX(3)}"/>
                 </h:commandLink>
                 <br/>
 
                 <h:outputLabel for="y" value="Y ∈ [-3;3]:"/>
                 <div>
-                    <p:inputText id="y" name="y" value="#{pointController.point.y}" maxlength="6"
+                    <p:inputText id="y" name="y" value="#{dotController.dot.y}" maxlength="6"
                                  validatorMessage="  Значение должно быть в диапазоне [-3; 3]"
                                  converterMessage="  Y должен быть числом">
                         <f:validateDoubleRange minimum="-3" maximum="3"/>
@@ -71,7 +71,7 @@
                 <br/>
 
                 <h:outputLabel value="R = " for="r"/>
-                <p:selectOneMenu id="r" value="#{pointController.point.r}">
+                <p:selectOneMenu id="r" value="#{dotController.dot.r}">
                     <f:selectItem itemLabel="1" itemValue="1"/>
                     <f:selectItem itemLabel="2" itemValue="2"/>
                     <f:selectItem itemLabel="3" itemValue="3"/>
@@ -81,16 +81,16 @@
                 </p:selectOneMenu>
 
                 <div class="button-container">
-                    <h:commandButton value="Жмяк" action="#{pointController.submitForm}"
+                    <h:commandButton value="Жмяк" action="#{dotController.submitForm}"
                                      styleClass="custom-button" update="resultTable" process="@form"/>
                 </div>
             </h:form>
 
             <h:form id="canvasForm" prependId="false">
-                <h:inputHidden id="canvasX" value="#{pointController.pointCanvas.x}"/>
-                <h:inputHidden id="canvasY" value="#{pointController.pointCanvas.y}"/>
-                <h:inputHidden id="canvasR" value="#{pointController.pointCanvas.r}"/>
-                <p:commandButton action="#{pointController.submitFormCanvas}"
+                <h:inputHidden id="canvasX" value="#{dotController.dotCanvas.x}"/>
+                <h:inputHidden id="canvasY" value="#{dotController.dotCanvas.y}"/>
+                <h:inputHidden id="canvasR" value="#{dotController.dotCanvas.r}"/>
+                <p:commandButton action="#{dotController.submitFormCanvas}"
                                  id="submitFormCanvas"
                                  process="@form"
                                  update="resultTable"
@@ -100,11 +100,11 @@
 
         </div>
         <h:form id="clearForm">
-            <h:commandButton value="ДЕСТРОЙ" action="#{pointController.clearPoints}"
+            <h:commandButton value="ДЕСТРОЙ" action="#{dotController.clearDots}"
                              styleClass="custom-button" update="resultTable"/>
         </h:form>
         <div class="hit-table-container full-width">
-            <h:dataTable id="resultTable" value="#{pointController.points}" var="pp"
+            <h:dataTable id="resultTable" value="#{dotController.dots}" var="pp"
                          style="width:100%;" emptyMessage="Нет результатов">
                 <h:column>
                     <f:facet name="header">X</f:facet>
