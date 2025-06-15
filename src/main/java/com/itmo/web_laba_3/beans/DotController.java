@@ -41,7 +41,8 @@ public class DotController implements Serializable {
     }
 
     public void save(Dot dot) {
-        dot.setHit(AreaCheck.checkHit(dot.getX(), dot.getY(), dot.getR()));
+        boolean hit = AreaCheck.checkHit(dot.getX(), dot.getY(), dot.getR());
+        dot.setHit(hit);
         DotInfluxDBManager.addDot(dot);
     }
 
@@ -66,5 +67,4 @@ public class DotController implements Serializable {
     public void clearDots() {
         DotInfluxDBManager.clearAllDots();
     }
-
 }

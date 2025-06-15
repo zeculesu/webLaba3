@@ -12,6 +12,12 @@ public class Dot {
     public Dot() {
     }
 
+    public Dot(int x, double y, int r){
+        this.x = x;
+        this.y = y;
+        this.r = r;
+    }
+
     public Dot(int x, double y, int r, boolean hit) {
         this.x = x;
         this.y = y;
